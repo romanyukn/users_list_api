@@ -1,17 +1,18 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import User from './User';
+import getUsers from '../services/getUsers';
 
-function UsersList() {
+function UsersList(props) {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState();
 
-  useEffect(() => {
-    axios.get('https://reqres.in/api/users?page=2')
-    .then((res) =>{ 
-      setUsers(res.data.data); 
-    })
-    .catch((err) => { console.log(err) })
-  })
+  // setCurrentPage(props.match.params.page);
+  console.log(props.match.params.page);
+  
+  useEffect(async () => {
+    const res = await getUsers(props.match.params.page);
+    setUsers(res.data.data);
+  }, []);
 
   return (
     <table className="table">
