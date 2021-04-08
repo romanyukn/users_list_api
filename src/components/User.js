@@ -1,8 +1,8 @@
 import React from 'react';
 
-function User({id, email, first_name, last_name}) {
+function User({id, email, first_name, last_name, showUser}) {
   return (
-    <tr>
+    <tr onClick={()=>showUser(id)}>
       <th scope="row">{id}</th>
       <td>{email}</td>
       <td>{first_name}</td>
