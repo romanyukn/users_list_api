@@ -1,27 +1,45 @@
 import React from 'react';
+import { Modal, Button, Row, Col, Form } from 'react-bootstrap';  
 
-function UserCard({id}) {
-  return (
-  <div id="modalId" className="modal" tabIndex="-1" role="dialog" stye={'display: block'}>
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">Profile</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+function UserCard(props) {
+  const {id, firstName, lastName, email, show, hide} = props;
+  return(
+    <Modal
+    show={show}
+    onHide={hide}
+    size="lg"
+    aria-labelledby="contained-modal-title-vcenter"
+    centered
+>
+
+    <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+            Profile
+        </Modal.Title>
+    </Modal.Header>
+
+    <Modal.Body>
+        <div className="container">
+            <Row>
+                <Col sm={6}>
+
+                    <Form>
+                        <p>ID: {id}</p>
+                        <p>First Name: {firstName}</p>
+                        <p>Last Name: {lastName}</p>
+                        <p>Email: {email}</p>
+
+                        <Form.Group>
+                            <Button variant="secondary"onClick={hide}>Close</Button>
+
+                        </Form.Group>
+                    </Form>
+                </Col>
+            </Row>
         </div>
-        <div className="modal-body">
-          <p>ID: {id}</p>
-          <p>First Name:</p> 
-          <p>Last Name:</p>
-          <p>Email:</p>
-        </div>
-        <div className="modal-footer">
-          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  )
+    </Modal.Body>
+</Modal>
+)
 }
 
 export default UserCard;

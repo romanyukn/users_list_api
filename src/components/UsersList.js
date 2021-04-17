@@ -11,7 +11,7 @@ function UsersList(props) {
   const [numberOfPages, setNumberOfPages] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [showUser, setShowUser] = useState(false);
-  const [userToShow, setUserToShow] = useState({id: ''});
+  const [userToShow, setUserToShow] = useState();
   const { page } = useParams();
   
   useEffect(async () => { 
@@ -23,10 +23,14 @@ function UsersList(props) {
 
   async function showUserCard(id) {
     const { data } = await getUser(id);
-    setUserToShow({id: data.data.id});
+    setUserToShow(data.data);
     setShowUser(true);
   }
 
+  function hideUserCard() {
+    setShowUser(false);
+  }
+  
   return (
     <React.Fragment>
       <table className="table">
@@ -50,7 +54,14 @@ function UsersList(props) {
             />)}
         </tbody>  
       </table>
-      {showUser && <UserCard id={userToShow.id}/>}
+      {userToShow && <UserCard 
+        id={userToShow.id}
+        firstName={userToShow.first_name}
+        lastName={userToShow.last_name}
+        email={userToShow.email}
+        show={showUser}
+        hide={hideUserCard}
+      />}
       <Pagination totalPages={numberOfPages} currentPage={currentPage}/>
     </React.Fragment>
   )
